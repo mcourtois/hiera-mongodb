@@ -1,5 +1,5 @@
 $:.unshift File.expand_path("../lib", __FILE__)
-require 'hiera/backend/psql_version'
+require 'hiera/backend/mongodb_version'
 
 Gem::Specification.new do |s|
   s.version = HieraBackends::MongoDB::VERSION
