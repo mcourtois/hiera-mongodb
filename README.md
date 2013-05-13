@@ -14,7 +14,7 @@ Here is a example hiera config file.
       - common
     
     :backends:
-      - psql
+      - mongodb
     
     :mongodb:
       :connection:
