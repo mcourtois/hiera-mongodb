@@ -1,0 +1,8 @@
+name    'mcourtois-hiera_mongodb'
+version '0.0.1'
+source 'http://github.com/mcourtois/hiera-mongodb'
+author 'Marc-Andre Courtois'
+license 'Apache License, Version 2.0'
+summary 'Hiera MongoDB backend'
+description 'Hiera MongoDB backend'
+project_page 'http://github.com/mcourtois/hiera-mongodb'
