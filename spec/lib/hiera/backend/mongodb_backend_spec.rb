@@ -10,7 +10,7 @@ class Hiera
         Hiera.stub :warn
 
         @collection_mock = double('collection').as_null_object
-        Mongodb_backend.should_receive(:collection).any_number_of_times.and_return(@collection_mock)
+        Mongodb_backend.should_receive(:load_collection).any_number_of_times.and_return(@collection_mock)
 
         @backend = Mongodb_backend.new
       end

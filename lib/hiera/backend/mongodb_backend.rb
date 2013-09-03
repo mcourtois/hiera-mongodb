@@ -7,6 +7,7 @@ class Hiera
     class Mongodb_backend
       def initialize
         Hiera.debug("Hiera MongoDB backend starting")
+        @collection = Mongodb_backend.load_collection
       end
 
       def lookup(key, scope, order_override, resolution_type)
@@ -17,7 +18,7 @@ class Hiera
         Backend.datasources(scope, order_override) do |source|
           Hiera.debug("Looking for data source #{source}")
 
-          document = collection.find_one({'source' => source.to_s, 'key' => key})
+          document = @collection.find_one({'source' => source.to_s, 'key' => key})
           if document
             new_answer = document['value']
 
@@ -48,21 +49,11 @@ class Hiera
 
       private
 
-      # Get a config key for this backend
-      def self.config(key)
-        Config[:mongodb][key.to_sym]
-      end
-
-      def self.collection
-        if @database.nil?
-          client = MongoClient.new(config :host)
-          database = client.db(config :dbname)
-          @database = database.collection(config :collection)
-        end
-      end
-
-      def collection
-        self.class.collection
+      def self.load_collection
+        connection = Config[:mongodb][:connection]
+        client = MongoClient.new(connection[:host])
+        database = client.db(connection[:dbname])
+        return database.collection(connection[:collection])
       end
     end
   end
